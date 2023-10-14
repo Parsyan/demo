@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+
+    <div class="seedstarterlist" th:unless="${#lists.isEmpty(users)}">
+        <table>
+            <tr> Email </tr>
+            <tr> Year Of Birth </tr>
+            <td>
+                <table>
+                    <tbody>
+                        <tr th:each="user : ${users}">
+                            <div>
+                                <td th:text="${user.email}"></td>
+
+                            </div>
+                            <div sec:authorize="hasRole('ROLE_ADMIN')" >
+                                <td th:text="${user.password}"></td>
+
+                            </div>
+                            <div>
+                                <td th:text="${user.yearOfBirth}"></td>
+                            </div>
+                            <div>
+                                <td th:text="${user.role}"></td>
+                            </div>
+                            <div>
+                                <td th:text="${user.gender}"></td>
+                            </div>
+
+                            <div  >
+                                <td th:if="${I == user.email}" > \/ </td>
+                            </div>
+
+                            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                <td>
+                                    <a th:href="@{/users/editUser/{email}(email = ${user.email})}" > edit </a>
+                                </td>
+                            </div>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </table>
+    </div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <form th:action="@{/users}" th:method="DELETE" th:object="${deleteUser}" >
+
+            <div>
+                <label for="deleteUser" > Delete User </label>
+                <input type="text" th:field="*{email}" id="deleteUser" />
+                <div style="color:red" th:if="${#fields.hasErrors('email')}"> Email error
+                </div>
+
+                <br/>
+
+            </div>
+
+            <div><input type="submit" value=" Delete "/></div>
+
+        </form>
+
+
+        <button type="submit" > <a onclick th:href="@{/auth/registration}" > Add User </a> </button>
+
+    </div>
+</body>
+</html>

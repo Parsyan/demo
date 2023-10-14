@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th=" https://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/Register.css}" >
+
+</head>
+<body>
+    
+    <div id="FormContainer">
+        <div class="ImgContainer">
+
+
+        </div>
+        <form id="Form" th:action="@{/auth/registration}" th:method="POST" th:object="${person}">
+            <h1 id="FormHeading">Sign Up</h1>
+            <div class="Name">
+                <li><label>First Name:</label>
+                    <input type="text" th:field="*{first_name}" id="first_name"
+
+                    value="${person}}"
+                    >
+                    <div style="color:red" th:if="${#fields.hasErrors('first_name')}" > first error
+                    </div>
+                </li>
+                <li><label>Last Name:</label>
+                    <input type="text" th:field="*{last_name}" id="last_name" placeholder="Petrosyan">
+                    <div style="color:red" th:if="${#fields.hasErrors('last_name')}"> last error
+                    </div>
+                </li>
+            </div>
+            <li>
+                <label>Email:</label>
+                <input type="email" th:field="*{email}" id="email" placeholder="Petros123@gmail.com">
+                <div style="color:red" th:if="${#fields.hasErrors('email')}" >
+                </div>
+            </li>
+            <div class="Phone">
+                <li><label>Country:</label>
+                    <select th:field="*{country}" id="country">
+
+
+                        <option th:value="Russia" >Russia</option>
+                        <option th:value="Armenia" >Armenia</option>
+                        <option th:value="England" >England</option>
+
+                        </select>
+                    <div style="color:red" th:if="${#fields.hasErrors('country')}"> country error
+                    </div>
+                <li>
+                    <label>Phone No:</label><input type="tel" th:field="*{phone_number}" id="phone_number" placeholder="123-456-789">
+                <div style="color:red" th:if="${#fields.hasErrors('phone_number')}"> Phone error
+                </div>
+                </li>
+            </div>
+            <div class="password">
+                <li><label>Password:</label> <input type="password" th:field="*{password}" id="password" >
+                    <div style="color:red" th:if="${#fields.hasErrors('password')}"> Password error
+                    </div>
+                </li>
+                <li><label>Confirm Password:</label> <input type="password" th:field="*{confirmPassword}" th:if="${password == confirmPassword}" ></li>
+
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+
+
+    </div>
+    <button><a th:href="@{/auth/login}"></a></button>
+</body>
+</html>

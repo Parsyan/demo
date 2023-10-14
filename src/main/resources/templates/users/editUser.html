@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.username}">User</title>
+<!--    <title></title>-->
+</head>
+<body>
+
+    <table>
+            <div>
+                <tr> Name </tr>
+            </div>
+            <div>
+                <tr> Password </tr>
+            </div>
+            <div>
+                <tr> Year of Birth </tr>
+            </div>
+            <div>
+                <tr> Role </tr>
+            </div>
+
+        <div>
+            <td th:text="${user.username}"></td>
+        </div>
+        <div>
+            <td th:text="${user.yearOfBirth}"></td>
+        </div>
+        <div>
+            <td th:text="${user.gender}"></td>
+        </div>
+        <div>
+            <td th:text="${user.role}"></td>
+        </div>
+
+    </table>
+
+    <div>
+        <form th:method="POST" th:action="@{/users/editUser}" th:object="${user}">
+
+            <div>
+                <input type="hidden" th:field="*{Id}" th:value="${user.id}">
+                <input type="hidden" th:field="*{Username}"  th:value="${user.username}">
+                <label for="password"> Введите желаемый пароль </label>
+                <input type="password" th:field="*{password}" id="password"/>
+                <div style="color:red" th:if="${#fields.hasErrors('password')}"> Password error
+                </div>
+
+                <br/>
+            </div>
+
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <label > Введите роль пользователя </label>
+                <br/>
+                <div>
+                    <label for="User"> User </label>
+                    <input type="radio" th:field="*{role}" id="User" name="4" value="ROLE_USER"  />
+                    <br/>
+                </div>
+                <div>
+                    <label for="Admin"> Admin </label>
+                    <input type="radio" th:field="*{role}" id="Admin" name="4" value="ROLE_ADMIN"  />
+                    <br/>
+                </div>
+
+                <div style="color:red" th:if="${#fields.hasErrors('role')}"> Role error
+                </div>
+                <br/>
+
+            </div>
+
+            <input type="submit" value="Sign up!">
+            <br/>
+        </form>
+    </div>
+
+</body>
+
+</html>
