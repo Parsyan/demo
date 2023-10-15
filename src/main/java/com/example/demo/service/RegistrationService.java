@@ -6,23 +6,67 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class RegistrationService {
     private final PeopleRepository peopleRepository;
+
     private final PasswordEncoder passwordEncoder;
 
+    private final MailSender mailSender;
+
     @Autowired
-    public RegistrationService(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder) {
+    public RegistrationService(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder, MailSender mailSender) {
         this.peopleRepository = peopleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mailSender = mailSender;
     }
 
-    @Transactional
-    public void register(Person person){
+//    @Transactional
+    public boolean register(Person person){
+        Optional<Person> userFromDb = peopleRepository.findByEmail(person.getEmail());
+
+        if (!userFromDb.isEmpty()){
+            return false;
+        }
+
+        person.setActive(true);
+        person.setRole("ROLE_USER");
+        person.setActivationCode(UUID.randomUUID().toString());
         person.setPassword(passwordEncoder.encode(person.getPassword()));
 
+
+
         peopleRepository.save(person);
+
+        if (!StringUtils.isEmpty(person.getEmail())){
+            String message = String.format(" Hello %s! \n" +
+                    " Welcome to RealShop, Please, visit next link: http://localhost:1212/demo/auth/" +
+                            "activate/%s",
+                    person.getEmail(),
+                    person.getActivationCode());
+            mailSender.send(person.getEmail(),"Activation Code", message);
+        }
+
+        return true;
+    }
+
+    public boolean activateUser(String code) {
+        Optional<Person> user = peopleRepository.findByActivationCode(code);
+
+        if (user.isEmpty()) {
+            return false;
+        }
+
+        user.get().setActivationCode(null);
+
+        peopleRepository.save(user.get());
+
+        return true;
     }
 
 

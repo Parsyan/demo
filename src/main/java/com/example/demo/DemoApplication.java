@@ -15,7 +15,7 @@ public class DemoApplication {
 		this.peopleRepository = peopleRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.peopleRepository.save(
-				new Person(null,"OPI","opo","poiuy.opiuy@mail.ru","094566554","male" ,"Armenia", 1990, "ROLE_ADMIN", passwordEncoder.encode("123456789"))
+				new Person(null,"OPI","opo","gorparsyan13@mail.ru","094566554","male" ,"Armenia", 1990, "ROLE_ADMIN", null,false, passwordEncoder.encode("123456789"),null)
 		);
 	}
 

@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "users")
+@Table(name = "person")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,7 +42,7 @@ public class Person {
     private String email;
 
     @NotEmpty(message = "Имя не должно быть пустым")
-//    @Size( max = 255, message = "Имя должно содержать больше 2 символов но не больше 15 "  )
+    @Size( max = 255, message = "Имя должно содержать больше 8 символов но не больше 15 "  )
     @Column(name = "phone_number")
     private String phone_number;
 
@@ -59,16 +59,19 @@ public class Person {
     @Column(name = "year_of_birth")
     private int yearOfBirth;
 
-
-
     @Column(name = "role")
 //    @Enumerated(value = EnumType.STRING)
     private String role;
 
+    private String activationCode;
+
+    private boolean active;
+
     @Column(name = "password", nullable = false)
     private String password;
 
-
+// Ժամանակավոր փոփոխական
+    private String confirmPassword;
 
 
 }

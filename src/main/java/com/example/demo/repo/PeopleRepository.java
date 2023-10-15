@@ -12,4 +12,6 @@ public interface PeopleRepository extends JpaRepository<Person,Long> {
 
     void deleteByEmail(String username);
 
+    Optional<Person> findByActivationCode(String code);
+
 }
