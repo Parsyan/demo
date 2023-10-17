@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Person;
-import com.example.demo.service.PersonService;
 import com.example.demo.service.RegistrationService;
 import com.example.demo.util.PersonValidator;
 import jakarta.validation.Valid;
@@ -18,12 +17,9 @@ public class AuthController {
 
     private final PersonValidator personValidator;
 
-    private final PersonService personService;
-
-    public AuthController(RegistrationService registrationService, PersonValidator personValidator,PersonService personService) {
+    public AuthController(RegistrationService registrationService, PersonValidator personValidator) {
         this.registrationService = registrationService;
         this.personValidator = personValidator;
-        this.personService = personService;
     }
 
     @GetMapping("/login")
@@ -31,11 +27,6 @@ public class AuthController {
         return "auth/login";
     }
 
-//    @PostMapping("/login")
-//    public String loginError(Model model) {
-//
-//        return "login";
-//    }
 
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("person") Person person){

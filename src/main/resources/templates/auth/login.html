@@ -1,31 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/Login.css}">
 </head>
 <body>
-    <div th:if="${param.error}" th:value="${param.error}">
+    
+    <div id="FormContainer">
+        <div class="ImgContainer">
 
-    </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
 
-        <form th:action="@{/auth/login}" method="POST">
-<!--            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
-
-            <div>
-                    <label> Email : <input type="email" name="email" /> </label>
-
+        </div>
+        <form id="Form" action="/auth/login" method="post">
+            <h1 id="FormHeading">Sign In</h1>
+            <li style="width: 22rem;">
+                <label>Email:</label>
+                <input type="email" name="email" placeholder="johndoe123@gmail.com" >
+            </li>
+            <div class="password">
+                <li style="width: 22rem;"><label>Password:</label> <input type="password" name="password"></li>
             </div>
-            <div>
-                    <label> Password: <input type="password" name="password" /> </label>
-            </div>
-            <div><input type="submit" value="Sign In"/></div>
+            <button type="submit">Sign In</button>
         </form>
 
-         <a th:href="@{/auth/registration}"> Registry now </a>
+    </div>
 
 </body>
 </html>

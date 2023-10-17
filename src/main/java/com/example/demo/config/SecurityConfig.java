@@ -36,7 +36,6 @@ public class SecurityConfig   {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests((requests) ->  requests
                         .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
@@ -44,8 +43,8 @@ public class SecurityConfig   {
                         .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
-                        .requestMatchers(
-                                new AntPathRequestMatcher("/users/**")).hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(new AntPathRequestMatcher("/users/**"))
+                            .hasAnyRole("USER", "ADMIN")
                         .anyRequest().hasAnyRole("ADMIN","USER")
                 )
                 .formLogin(form -> form
@@ -60,7 +59,7 @@ public class SecurityConfig   {
                         .logoutSuccessUrl("/auth/login")
                 );
 
-        http.headers().frameOptions().disable();
+
 
         return http.build();
     }

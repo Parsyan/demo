@@ -5,7 +5,6 @@ import com.example.demo.repo.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.Optional;
@@ -34,7 +33,7 @@ public class RegistrationService {
             return false;
         }
 
-        person.setActive(true);
+        person.setActive(false);
         person.setRole("ROLE_USER");
         person.setActivationCode(UUID.randomUUID().toString());
         person.setPassword(passwordEncoder.encode(person.getPassword()));
@@ -44,10 +43,11 @@ public class RegistrationService {
         peopleRepository.save(person);
 
         if (!StringUtils.isEmpty(person.getEmail())){
-            String message = String.format(" Hello %s! \n" +
-                    " Welcome to RealShop, Please, visit next link: http://localhost:1212/demo/auth/" +
+            String message = String.format(" Hello %s %s! \n" +
+                    " Welcome to RealShop, Please, visit next link if you want activate your account Խիայարի ցավ : http://localhost:1212/demo/auth/" +
                             "activate/%s",
-                    person.getEmail(),
+                    person.getFirst_name(),
+                    person.getLast_name(),
                     person.getActivationCode());
             mailSender.send(person.getEmail(),"Activation Code", message);
         }

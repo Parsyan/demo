@@ -4,7 +4,7 @@
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title th:text="${username} ">Users</title>
 </head>
 <body>
 
@@ -34,8 +34,8 @@
                                 <td th:text="${user.gender}"></td>
                             </div>
 
-                            <div  >
-                                <td th:if="${I == user.email}" > \/ </td>
+                            <div >
+                                <td th:if="${username == user.email}" > \/ </td>
                             </div>
 
                             <div sec:authorize="hasRole('ROLE_ADMIN')">

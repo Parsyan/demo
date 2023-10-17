@@ -21,7 +21,7 @@
                 <li><label>First Name:</label>
                     <input type="text" th:field="*{first_name}" id="first_name"
 
-                    value="${person}}"
+                    value= "Petros"
                     >
                     <div style="color:red" th:if="${#fields.hasErrors('first_name')}" > first error
                     </div>
@@ -68,8 +68,8 @@
             <button type="submit">Sign Up</button>
         </form>
 
-<div th:text="${err}" ></div>
-    </div>
-    <button><a th:href="@{/auth/login}"></a></button>
+<!--<div th:text="${err}" ></div>-->
+<!--    </div>-->
+<!--    <button><a th:href="@{/auth/login}"></a></button>-->
 </body>
 </html>

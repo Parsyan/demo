@@ -45,7 +45,7 @@ public class PersonService {
         if(person.getYearOfBirth() == 0){
             person.setYearOfBirth(user.get().getYearOfBirth());
         }
-        if(person.getRole() == null || person.getRole().equals("")){
+        if(person.getRole() == null || person.getRole().isEmpty()){
             person.setRole(user.get().getRole());
         }
         if(person.getFirst_name() == null){

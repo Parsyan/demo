@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -23,7 +25,7 @@ public class UserController {
     public String users(Model model, HttpServletRequest http) {
 
         model.addAttribute("users", personService.getUsers());
-        model.addAttribute("I", http.getRemoteUser());
+        model.addAttribute("username", http.getRemoteUser());
         model.addAttribute("deleteUser", new Person());
 
         return "users/users";
@@ -33,8 +35,13 @@ public class UserController {
     @GetMapping("/editUser/{email}")
     public String editUser(@PathVariable("email") String email, Model model) throws UnsupportedUserInDBException {
         System.out.println(email);
-//        personService.editUser(email);
-        model.addAttribute("user", personService.getUser(email).get());
+        Optional<Person> user = personService.getUser(email);
+        if (user.isEmpty() || user.isPresent()) {
+            model.addAttribute("err", " User Is Not Found ");
+        }
+        else {
+            model.addAttribute("user", personService.getUser(email).get());
+        }
         return "/users/editUser";
     }
     @PostMapping("/editUser")

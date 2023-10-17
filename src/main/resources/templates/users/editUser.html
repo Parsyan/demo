@@ -10,40 +10,40 @@
 <body>
 
     <table>
-            <div>
-                <tr> Name </tr>
-            </div>
-            <div>
-                <tr> Password </tr>
-            </div>
-            <div>
-                <tr> Year of Birth </tr>
-            </div>
-            <div>
-                <tr> Role </tr>
-            </div>
 
-        <div>
+                <tr> Name </tr>
+
+
+                <tr> Password </tr>
+
+
+                <tr> Year of Birth </tr>
+
+
+                <tr> Role </tr>
+
+
+
             <td th:text="${user.username}"></td>
-        </div>
-        <div>
+
+
             <td th:text="${user.yearOfBirth}"></td>
-        </div>
-        <div>
+
+
             <td th:text="${user.gender}"></td>
-        </div>
-        <div>
+
+
             <td th:text="${user.role}"></td>
-        </div>
+
 
     </table>
-
+<div th:text="err"></div>
     <div>
         <form th:method="POST" th:action="@{/users/editUser}" th:object="${user}">
 
             <div>
-                <input type="hidden" th:field="*{Id}" th:value="${user.id}">
-                <input type="hidden" th:field="*{Username}"  th:value="${user.username}">
+                <input type="hidden" th:field="*{id}" th:value="${user.id}">
+                <input type="hidden" th:field="*{email}"  th:value="${user.email}">
                 <label for="password"> Введите желаемый пароль </label>
                 <input type="password" th:field="*{password}" id="password"/>
                 <div style="color:red" th:if="${#fields.hasErrors('password')}"> Password error
