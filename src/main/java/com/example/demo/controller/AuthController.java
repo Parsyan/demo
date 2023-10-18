@@ -45,10 +45,12 @@ public class AuthController {
         if (bindingResult.hasErrors()){
             return "auth/Register";
         }
-        if(!registrationService.register(person)){
-            model.addAttribute("err","User is exists");
+        String registerResult = registrationService.register(person);
+        if (!registerResult.equals("Success")) {
+            model.addAttribute("message", registerResult);
             return "auth/Register";
         }
+
 //        System.out.println(personService.getUser(person.getEmail()) + " user : " + person.getEmail());
         return "redirect:/users";
     }

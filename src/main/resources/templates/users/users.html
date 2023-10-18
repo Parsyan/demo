@@ -44,28 +44,35 @@
                                 </td>
                             </div>
 
+                            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                <td>
+                                    <a th:href="@{/users/deleteUser/{email}(email = ${user.email})}" > delete </a>
+                                </td>
+                            </div>
+
+
                         </tr>
                     </tbody>
                 </table>
             </td>
         </table>
     </div>
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
-        <form th:action="@{/users}" th:method="DELETE" th:object="${deleteUser}" >
+<!--    <div sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--        <form th:action="@{/users}" th:method="DELETE" th:object="${deleteUser}" >-->
 
-            <div>
-                <label for="deleteUser" > Delete User </label>
-                <input type="text" th:field="*{email}" id="deleteUser" />
-                <div style="color:red" th:if="${#fields.hasErrors('email')}"> Email error
-                </div>
+<!--            <div>-->
+<!--                <label for="deleteUser" > Delete User </label>-->
+<!--                <input type="text" th:field="*{email}" id="deleteUser" />-->
+<!--                <div style="color:red" th:if="${#fields.hasErrors('email')}"> Email error-->
+<!--                </div>-->
 
-                <br/>
+<!--                <br/>-->
 
-            </div>
+<!--            </div>-->
 
-            <div><input type="submit" value=" Delete "/></div>
+<!--            <div><input type="submit" value=" Delete "/></div>-->
 
-        </form>
+<!--        </form>-->
 
 
         <button type="submit" > <a onclick th:href="@{/auth/registration}" > Add User </a> </button>

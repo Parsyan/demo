@@ -8,20 +8,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class DemoApplication {
-//	private final PeopleRepository peopleRepository;
-//	private final PasswordEncoder passwordEncoder;
-
-//	public DemoApplication(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder) {
-//		this.peopleRepository = peopleRepository;
-//		this.passwordEncoder = passwordEncoder;
+	private final PeopleRepository peopleRepository;
+	private final PasswordEncoder passwordEncoder;
+//
+	public DemoApplication(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder) {
+		this.peopleRepository = peopleRepository;
+		this.passwordEncoder = passwordEncoder;
+		System.out.println(this.peopleRepository.findAll());
 //		this.peopleRepository.save(
 //				new Person(null,"OPI","opo","gorparsyan13@mail.ru","094566554","male" ,"Armenia", 1990, "ROLE_ADMIN", null,false, passwordEncoder.encode("123456789"),null)
 //		);
-//	}
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-
 
 
 	}

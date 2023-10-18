@@ -4,27 +4,33 @@
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${user.username}">User</title>
+    <title th:text="user.email">User</title>
 <!--    <title></title>-->
 </head>
 <body>
 
     <table>
 
-                <tr> Name </tr>
+                <tr> First Name </tr>
 
 
-                <tr> Password </tr>
+                <tr> Last Name </tr>
 
 
                 <tr> Year of Birth </tr>
+
+
+                <tr> Gender </tr>
 
 
                 <tr> Role </tr>
 
 
 
-            <td th:text="${user.username}"></td>
+            <td th:text="${user.first_name}"></td>
+
+
+            <td th:text="${user.last_name}"></td>
 
 
             <td th:text="${user.yearOfBirth}"></td>
@@ -37,13 +43,20 @@
 
 
     </table>
-<div th:text="err"></div>
+            <div th:text="err"></div>
     <div>
         <form th:method="POST" th:action="@{/users/editUser}" th:object="${user}">
 
             <div>
                 <input type="hidden" th:field="*{id}" th:value="${user.id}">
                 <input type="hidden" th:field="*{email}"  th:value="${user.email}">
+                <input type="hidden" th:field="*{first_name}"  th:value="${user.first_name}">
+                <input type="hidden" th:field="*{last_name}"  th:value="${user.last_name}">
+                <input type="hidden" th:field="*{country}"  th:value="${user.country}">
+                <input type="hidden" th:field="*{phone_number}"  th:value="${user.phone_number}">
+
+
+
                 <label for="password"> Введите желаемый пароль </label>
                 <input type="password" th:field="*{password}" id="password"/>
                 <div style="color:red" th:if="${#fields.hasErrors('password')}"> Password error

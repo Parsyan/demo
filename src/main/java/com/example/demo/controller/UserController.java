@@ -34,12 +34,13 @@ public class UserController {
 
     @GetMapping("/editUser/{email}")
     public String editUser(@PathVariable("email") String email, Model model) throws UnsupportedUserInDBException {
-        System.out.println(email);
+        System.out.println(email + "  Email  \n");
         Optional<Person> user = personService.getUser(email);
-        if (user.isEmpty() || user.isPresent()) {
+        if (user.isEmpty()) {
             model.addAttribute("err", " User Is Not Found ");
         }
         else {
+            System.out.println(personService.getUser(email).get() + " remote user \n ");
             model.addAttribute("user", personService.getUser(email).get());
         }
         return "/users/editUser";
@@ -52,7 +53,7 @@ public class UserController {
         return "/users/editUser";
     }
 
-    @PostMapping
+    @GetMapping("/deleteUser/{email}")
     public String deleteUserByUsername(@ModelAttribute("deleteUser") Person user, HttpServletRequest request) throws ServletException {
         personService.deleteByUsername(user.getEmail());
         if(user.getEmail().equals(request.getRemoteUser()))

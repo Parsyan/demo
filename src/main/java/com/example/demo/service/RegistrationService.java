@@ -26,16 +26,22 @@ public class RegistrationService {
     }
 
 //    @Transactional
-    public boolean register(Person person){
+    public String register(Person person){
         Optional<Person> userFromDb = peopleRepository.findByEmail(person.getEmail());
 
-        if (!userFromDb.isEmpty()){
-            return false;
+        if (userFromDb.isPresent()) {
+            return "User is exists";
         }
 
-        person.setActive(false);
+        person.setActive(true);
         person.setRole("ROLE_USER");
         person.setActivationCode(UUID.randomUUID().toString());
+        if (person.getPassword().toString().length() < 8){
+            return "Password must have a 8 symbols";
+        } else if (!person.getPassword().equals(person.getConfirmPassword())){
+            return "password and confirm password not equals";
+        }
+
         person.setPassword(passwordEncoder.encode(person.getPassword()));
 
 
@@ -52,7 +58,7 @@ public class RegistrationService {
             mailSender.send(person.getEmail(),"Activation Code", message);
         }
 
-        return true;
+        return "Success";
     }
 
     public boolean activateUser(String code) {
