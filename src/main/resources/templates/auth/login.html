@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <link rel="stylesheet" th:href="@{/css/Login.css}">
 </head>
 <body>
@@ -18,10 +18,10 @@
             <h1 id="FormHeading">Sign In</h1>
             <li style="width: 22rem;">
                 <label>Email:</label>
-                <input type="email" name="email" placeholder="johndoe123@gmail.com" >
+                <input type="email" name="email" placeholder="johndoe123@gmail.com" required>
             </li>
             <div class="password">
-                <li style="width: 22rem;"><label>Password:</label> <input type="password" name="password"></li>
+                <li style="width: 22rem;"><label>Password:</label> <input type="password" name="password" required></li>
             </div>
             <button type="submit">Sign In</button>
         </form>

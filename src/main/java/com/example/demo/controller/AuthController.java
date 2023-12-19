@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Person;
-import com.example.demo.service.RegistrationService;
+import com.example.demo.service.PersonDetailsService;
 import com.example.demo.util.PersonValidator;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -9,15 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.UnknownHostException;
+
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final RegistrationService registrationService;
+    private final PersonDetailsService.RegistrationService registrationService;
 
     private final PersonValidator personValidator;
 
-    public AuthController(RegistrationService registrationService, PersonValidator personValidator) {
+    public AuthController(PersonDetailsService.RegistrationService registrationService, PersonValidator personValidator) {
         this.registrationService = registrationService;
         this.personValidator = personValidator;
     }
@@ -27,15 +29,15 @@ public class AuthController {
         return "auth/login";
     }
 
-
     @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("person") Person person){
         return "auth/Register";
     }
+
     @PostMapping("/registration")
     public String performRegistration(@ModelAttribute("person") @Valid Person person,
                                       Model model,
-                                      BindingResult bindingResult){
+                                      BindingResult bindingResult) throws UnknownHostException {
 
         System.out.println(" Confirm :" + person.getConfirmPassword() + "\n"
         + " Binding Result " + bindingResult);

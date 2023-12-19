@@ -1,14 +1,14 @@
 package com.example.demo.security;
 
-import com.example.demo.service.user.PersonDetailsService;
+
+import com.example.demo.service.PersonDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -37,7 +37,7 @@ public class AuthProviderImpl implements AuthenticationProvider {
         if (!personDetails.isEnabled()){
             throw new AuthenticationException(" You not activate your account ") {};
         }
-        else if (!passwordEncoder.matches(password,personDetails.getPassword()) && !personDetails.getConfirmPassword().equals(password)){
+        else if (!passwordEncoder.matches(password,personDetails.getPassword())){
             throw new AuthenticationException(" Password not matches ") {};
         }
 //        else if (!password.equals(personDetails.getPassword())) {

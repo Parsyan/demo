@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 
-public class PersonDetails implements UserDetails {
+public class PersonDetails extends Person implements UserDetails {
     private final Person person;
 
     public PersonDetails(Person person) {
@@ -18,7 +18,7 @@ public class PersonDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(person.getRole()));
+        return Collections.singletonList(new SimpleGrantedAuthority(person.getRole().getAuthority()));
     }
 
     @Override

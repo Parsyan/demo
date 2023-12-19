@@ -5,16 +5,17 @@ import com.example.demo.model.Person;
 import com.example.demo.service.PersonService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/users")
 public class UserController {
-
+// create logic is realized in AuthController class
     private final PersonService personService;
 
     public UserController(PersonService personService) {
@@ -22,44 +23,37 @@ public class UserController {
     }
 
     @GetMapping
-    public String users(Model model, HttpServletRequest http) {
-
-        model.addAttribute("users", personService.getUsers());
-        model.addAttribute("username", http.getRemoteUser());
-        model.addAttribute("deleteUser", new Person());
-
-        return "users/users";
+    public ResponseEntity<List<Person>> users() {
+        return new ResponseEntity<>(personService.getUsers(), HttpStatus.FOUND);
     }
 
 
-    @GetMapping("/editUser/{email}")
-    public String editUser(@PathVariable("email") String email, Model model) throws UnsupportedUserInDBException {
-        System.out.println(email + "  Email  \n");
-        Optional<Person> user = personService.getUser(email);
-        if (user.isEmpty()) {
-            model.addAttribute("err", " User Is Not Found ");
-        }
-        else {
-            System.out.println(personService.getUser(email).get() + " remote user \n ");
-            model.addAttribute("user", personService.getUser(email).get());
-        }
-        return "/users/editUser";
+    @GetMapping({"{email}"})
+    public ResponseEntity<Person> getUserByEmail(@PathVariable String email){
+        var person = personService.getUser(email);
+        return (person.isEmpty())
+                ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
+                : new ResponseEntity<>(person.get(),HttpStatus.FOUND);
     }
-    @PostMapping("/editUser")
-    public String editUser(@ModelAttribute("user") Person person) throws UnsupportedUserInDBException {
+
+    @PatchMapping({"/editUser","/editUser/"})
+    public ResponseEntity<Person> editUser(@RequestBody Person person) {
           System.out.println(person);
-        personService.editUser(person);
-
-        return "/users/editUser";
+          try {
+              personService.editUser(person);
+          } catch (UnsupportedUserInDBException ignored){
+              return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+          }
+        return new ResponseEntity<>(person, HttpStatus.OK);
     }
 
-    @GetMapping("/deleteUser/{email}")
-    public String deleteUserByUsername(@ModelAttribute("deleteUser") Person user, HttpServletRequest request) throws ServletException {
+    @DeleteMapping("/deleteUser/")
+    public ResponseEntity<Person> deleteUserByUsername(@RequestBody Person user, HttpServletRequest request) throws ServletException {
         personService.deleteByUsername(user.getEmail());
-        if(user.getEmail().equals(request.getRemoteUser()))
+        if(user.getEmail().equals(request.getRemoteUser())) {
             request.logout();
-          
-        return "redirect:/users";
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

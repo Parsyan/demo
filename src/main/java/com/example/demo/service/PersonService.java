@@ -42,10 +42,10 @@ public class PersonService {
             person.setGender(user.get().getGender());
         }
 
-        if(person.getYearOfBirth() == 0){
+        if(person.getYearOfBirth() == null || person.getYearOfBirth().getYear() == 0){
             person.setYearOfBirth(user.get().getYearOfBirth());
         }
-        if(person.getRole() == null || person.getRole().isEmpty()){
+        if(person.getRole() == null){
             person.setRole(user.get().getRole());
         }
         if(person.getFirst_name() == null){
