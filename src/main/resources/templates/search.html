@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+        <form method="POST" th:action="@{/search}">
+            <label>
+                <input type="text" name="email" placeholder="Search Your User Email " required>
+            </label>
+            <input type="submit" placeholder="Press">
+        </form>
+
+        <p th:each=" user : ${users}" th:text="${user}"></p>
+        <div th:insert="~{side :: sidebar}"></div>
+</body>
+</html>

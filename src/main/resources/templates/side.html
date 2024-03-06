@@ -1,0 +1,11 @@
+<th:block xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" th:fragment="sidebar">
+    <div>
+        <menu>
+            <li> <a th:href="@{/}"> Home </a> </li>
+            <li> <a sec:authorize="isAuthenticated()" th:href="@{/auth/login}"> Login </a> </li>
+            <li> <a sec:authirize="!isAuthenticated()" th:href="@{/auth/logout}"> Log out </a></li>
+        </menu>
+    </div>
+</th:block>
+
+
