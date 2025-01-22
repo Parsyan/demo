@@ -46,7 +46,9 @@ public class SecurityConfig   {
                         .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/users/**"))
-                            .hasAnyRole("USER", "ADMIN")
+//                            .hasAnyRole("USER", "ADMIN")
+                            .permitAll()
+
                         .anyRequest().hasAnyRole("ADMIN","USER")
                 )
                 .formLogin(form -> form
@@ -61,7 +63,10 @@ public class SecurityConfig   {
                         .logoutSuccessUrl("/auth/login")
                 );
 
-
+        http
+                .cors(cors -> cors.disable())
+                .csrf(csrf -> csrf.disable())
+                .headers(header -> header.disable());
 
         return http.build();
     }

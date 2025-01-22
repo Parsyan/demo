@@ -14,32 +14,32 @@ import java.sql.Date;
 public class DemoApplication {
 	private final PeopleRepository peopleRepository;
 	private final PasswordEncoder passwordEncoder;
-//
+
 	public DemoApplication(PeopleRepository peopleRepository, PasswordEncoder passwordEncoder) {
 		this.peopleRepository = peopleRepository;
 		this.passwordEncoder = passwordEncoder;
 		System.out.println(this.peopleRepository.findAll());
-//		this.peopleRepository.save(
-//				new Person(
-//						null,
-//						"OPI",
-//						"opo",
-//						"gorparsyan13@mail.ru",
-//						"094566554",
-//						"male",
-//						Countries.Armenia,
-//						new Date(2006,9,11),
-//						Role.ROLE_ADMIN,
-//						null,
-//						true,
-//						passwordEncoder.encode("123456789"),
-//						"123456789",
-//						null,
-//						null,
-//						null,
-//						null
-//				)
-//		);
+		this.peopleRepository.save(
+				new Person(
+						null,
+						"OPI",
+						"opo",
+						"gorparsyan13@mail.ru",
+						"094566554",
+						"male",
+						Countries.Armenia,
+						Date.valueOf("2006-9-11"),
+						Role.ROLE_ADMIN,
+						null,
+						true,
+						passwordEncoder.encode("123456789"),
+						"123456789",
+						null,
+						null,
+						null,
+						null
+				)
+		);
 
 	}
 

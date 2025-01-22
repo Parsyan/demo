@@ -7,7 +7,6 @@ import com.example.demo.model.relationship.BoughtItem;
 import com.example.demo.model.relationship.ShopUserRegistration;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -64,9 +63,9 @@ public class Person {
     @Column(name = "country")
     private Countries country;
 
-    @Column(name = "year_of_birth")
-    @DateTimeFormat(pattern = "dd:mm:yyyy")
-    private Date yearOfBirth;
+    @Column(name = "birthday")
+    @DateTimeFormat(pattern = "yyyy:mm:dd")
+    private Date birthday;
 
     @Column(name = "role")
     @Enumerated(value = EnumType.STRING)
@@ -104,7 +103,7 @@ public class Person {
                 "   phone_number : " + phone_number + '\n' +
                 "   gender : " + gender + '\n' +
                 "   country : " + country + '\n' +
-                "   yearOfBirth : " + yearOfBirth + '\n' +
+                "   yearOfBirth : " + birthday + '\n' +
                 "   role : " + role + '\n' +
                 "   activationCode : " + activationCode + '\n' +
                 "   active : " + active + '\n' +

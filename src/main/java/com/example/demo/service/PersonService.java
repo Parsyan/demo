@@ -38,12 +38,19 @@ public class PersonService {
         if(user.isEmpty()) {
             throw new UnsupportedUserInDBException(" Undefined user in repository ");
         }
+
+        if (user.get().getId() != 0){
+            person.setId(user.get().getId());
+        }
         if(person.getGender() == null){
             person.setGender(user.get().getGender());
         }
+        if(person.getPhone_number() == null){
+            person.setPhone_number(user.get().getPhone_number());
+        }
 
-        if(person.getYearOfBirth() == null || person.getYearOfBirth().getYear() == 0){
-            person.setYearOfBirth(user.get().getYearOfBirth());
+        if(person.getBirthday() == null || person.getBirthday().getTime() == 0){
+            person.setBirthday(user.get().getBirthday());
         }
         if(person.getRole() == null){
             person.setRole(user.get().getRole());
@@ -51,6 +58,10 @@ public class PersonService {
         if(person.getFirst_name() == null){
             person.setFirst_name(user.get().getFirst_name());
         }
+        if(person.getLast_name() == null){
+            person.setLast_name(user.get().getLast_name());
+        }
+
         if(person.getPassword() == null){
             person.setPassword(user.get().getPassword());
         } else {
@@ -59,6 +70,7 @@ public class PersonService {
 
         peopleRepository.save(person);
 
+        System.out.println(person + "qwertyu");
     }
 
     @Transactional
