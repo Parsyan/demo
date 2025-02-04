@@ -1,9 +1,9 @@
 package com.example.demo;
 
-import com.example.demo.model.Person;
-import com.example.demo.model.other.Countries;
-import com.example.demo.model.other.Role;
-import com.example.demo.repo.PeopleRepository;
+import com.example.demo.db.model.Person;
+import com.example.demo.db.model.other.Countries;
+import com.example.demo.db.model.other.Role;
+import com.example.demo.db.repo.PeopleRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,25 +20,20 @@ public class DemoApplication {
 		this.passwordEncoder = passwordEncoder;
 		System.out.println(this.peopleRepository.findAll());
 		this.peopleRepository.save(
-				new Person(
-						null,
-						"OPI",
-						"opo",
-						"gorparsyan13@mail.ru",
-						"094566554",
-						"male",
-						Countries.Armenia,
-						Date.valueOf("2006-9-11"),
-						Role.ROLE_ADMIN,
-						null,
-						true,
-						passwordEncoder.encode("123456789"),
-						"123456789",
-						null,
-						null,
-						null,
-						null
-				)
+				Person.builder()
+						.email("gorparsyan13@mail.ru")
+						.password(passwordEncoder.encode("123456789"))
+						.confirmPassword("123456789")
+						.active(true)
+						.first_name("OPI")
+						.last_name("opo")
+						.birthDate(Date.valueOf("2006-9-11"))
+						.phone_number("094566554")
+						.gender("male")
+						.country(Countries.Armenia)
+						.role(Role.ROLE_ADMIN)
+
+							.build()
 		);
 
 	}

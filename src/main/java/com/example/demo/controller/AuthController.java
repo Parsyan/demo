@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Person;
+import com.example.demo.db.model.Person;
 import com.example.demo.service.PersonDetailsService;
 import com.example.demo.util.PersonValidator;
 import jakarta.validation.Valid;

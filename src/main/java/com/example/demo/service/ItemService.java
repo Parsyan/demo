@@ -1,14 +1,16 @@
 package com.example.demo.service;
 
 import com.example.demo.exception.UnsupportedUserInDBException;
-import com.example.demo.model.Item;
-import com.example.demo.model.Person;
-import com.example.demo.repo.ItemsRepository;
-import com.example.demo.repo.PeopleRepository;
+import com.example.demo.db.model.Item;
+import com.example.demo.db.model.Person;
+import com.example.demo.db.repo.ItemsRepository;
+import com.example.demo.db.repo.PeopleRepository;
 import jakarta.persistence.EntityExistsException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,8 +21,8 @@ public class ItemService {
 
     @Transactional
     public void registerItem(Item item, Person person){
-        var existsed = itemsRepository.existsItemByName(item.getName());
-        if (existsed.isPresent()) {
+        Optional<Item> exists = itemsRepository.existsItemByName(item.getName());
+        if (exists.isPresent()) {
             throw new EntityExistsException("Item is Exists");
         }
 

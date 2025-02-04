@@ -1,6 +1,6 @@
-package com.example.demo.repo;
+package com.example.demo.db.repo;
 
-import com.example.demo.model.Person;
+import com.example.demo.db.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

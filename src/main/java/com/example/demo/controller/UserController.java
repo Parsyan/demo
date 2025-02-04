@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.exception.UnsupportedUserInDBException;
-import com.example.demo.model.Person;
+import com.example.demo.db.model.Person;
 import com.example.demo.service.PersonService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")

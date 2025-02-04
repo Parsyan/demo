@@ -1,6 +1,6 @@
 package com.example.demo.util;
 
-import com.example.demo.model.Person;
+import com.example.demo.db.model.Person;
 import com.example.demo.service.PersonDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

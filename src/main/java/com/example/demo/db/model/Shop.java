@@ -1,12 +1,12 @@
-package com.example.demo.model;
+package com.example.demo.db.model;
 
-import com.example.demo.model.relationship.ShopUserRegistration;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "shops")
@@ -25,11 +25,18 @@ public class Shop {
     @Column(name = "shop_about")
     private String about;
 
-    @OneToMany(mappedBy = "shop")
-    private List<Item> items;
+    //    TODO REFORM FOR PERSON_ID
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 
-    @OneToMany(mappedBy = "shop")
-    private List<ShopUserRegistration> shopUserRegistrationList;
+    @CreatedDate
+    private LocalDate createdDate;
+//
+//  TODO Think realize it or not ???
+//    @OneToMany(mappedBy = "shop")
+//    private List<Item> items;
+
 
     @Override
     public String toString() {

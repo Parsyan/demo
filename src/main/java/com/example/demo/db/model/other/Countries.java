@@ -1,4 +1,4 @@
-package com.example.demo.model.other;
+package com.example.demo.db.model.other;
 
 public enum Countries {
     Armenia,

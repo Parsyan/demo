@@ -1,19 +1,15 @@
-package com.example.demo.model;
+package com.example.demo.db.model;
 
-import com.example.demo.model.other.Countries;
-import com.example.demo.model.other.Role;
-import com.example.demo.model.relationship.Basket;
-import com.example.demo.model.relationship.BoughtItem;
+import com.example.demo.db.model.relationship.Cart;
+import com.example.demo.db.model.relationship.Order;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.annotation.CreatedDate;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -31,8 +27,12 @@ public class Item {
     private String name;
     @Column(name = "price", insertable = false)
     private int price;
-    @Column(name = "category", insertable = false)
-    private String category;
+
+//    TODO reform for category normal work.
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     private String status;
 
@@ -45,15 +45,15 @@ public class Item {
     @JoinColumn(name = "person_id")
     private Person person;
 
-    @ManyToOne
-    @JoinColumn(name = "shop_id")
-    private Shop shop;
+
+    @CreatedDate
+    private LocalDate createdDate;
 
     @OneToMany(mappedBy = "item")
-    private List<BoughtItem> boughtItemList;
+    private List<Order> orderList;
 
     @OneToMany(mappedBy = "item")
-    private List<Basket> basketList;
+    private List<Cart> cartList;
 
     @Override
     public String toString() {
@@ -65,7 +65,6 @@ public class Item {
                 "    status : " + status + '\n' +
                 "    counts : " + counts +
                 "    aboutItem : " + aboutItem + '\n' +
-                "    person : " + person.getEmail() + '\n' +
-                "    shop ։ " + shop.getName();
+                "    person : " + person.getEmail() + '\n';
     }
 }

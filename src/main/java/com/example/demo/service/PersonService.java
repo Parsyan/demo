@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.exception.UnsupportedUserInDBException;
-import com.example.demo.model.Person;
-import com.example.demo.repo.PeopleRepository;
+import com.example.demo.db.model.Person;
+import com.example.demo.db.repo.PeopleRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,8 +49,8 @@ public class PersonService {
             person.setPhone_number(user.get().getPhone_number());
         }
 
-        if(person.getBirthday() == null || person.getBirthday().getTime() == 0){
-            person.setBirthday(user.get().getBirthday());
+        if(person.getBirthDate() == null || person.getBirthDate().getTime() == 0){
+            person.setBirthDate(user.get().getBirthDate());
         }
         if(person.getRole() == null){
             person.setRole(user.get().getRole());

@@ -1,8 +1,7 @@
-package com.example.demo.model.relationship;
+package com.example.demo.db.model.relationship;
 
-import com.example.demo.model.Item;
-import com.example.demo.model.Person;
-import com.example.demo.model.keys.PersonItemKeys;
+import com.example.demo.db.model.Item;
+import com.example.demo.db.model.Person;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -14,18 +13,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Basket {
+public class Cart {
 
-    @EmbeddedId
-    PersonItemKeys id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @MapsId("personId")
+//    @MapsId("personId")
     @JoinColumn(name = "person_id")
     Person person;
 
     @ManyToOne
-    @MapsId("itemId")
+//    @MapsId("itemId")
     @JoinColumn(name = "item_id")
     Item item;
 

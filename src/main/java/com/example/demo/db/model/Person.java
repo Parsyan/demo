@@ -1,20 +1,20 @@
-package com.example.demo.model;
+package com.example.demo.db.model;
 
-import com.example.demo.model.other.Countries;
-import com.example.demo.model.other.Role;
-import com.example.demo.model.relationship.Basket;
-import com.example.demo.model.relationship.BoughtItem;
-import com.example.demo.model.relationship.ShopUserRegistration;
+import com.example.demo.db.model.other.Countries;
+import com.example.demo.db.model.other.Role;
+import com.example.demo.db.model.relationship.Cart;
+import com.example.demo.db.model.relationship.Order;
+import com.example.demo.db.model.relationship.rating.PersonRating;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -22,16 +22,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Person {
     @Id
-    @Column(name = "id")
+    @Column(name = "person_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-//    @NotEmpty(message = "Имя не должно быть пустым")
-//    @Size(min = 3 , max = 15, message = "Имя пользователя должно содержать больше 2 символов но не больше 15 "  )
-//    @Column(name = "username", unique = true)
-//    private String username;
 
     @NotEmpty(message = "Имя не должно быть пустым")
     @Size(min = 3 , max = 15, message = "Имя должно содержать больше 2 символов но не больше 15 "  )
@@ -63,9 +59,9 @@ public class Person {
     @Column(name = "country")
     private Countries country;
 
-    @Column(name = "birthday")
+    @Column(name = "birthDate")
     @DateTimeFormat(pattern = "yyyy:mm:dd")
-    private Date birthday;
+    private Date birthDate;
 
     @Column(name = "role")
     @Enumerated(value = EnumType.STRING)
@@ -78,36 +74,48 @@ public class Person {
     @Column(name = "password", nullable = false)
     private String password;
 
-// Ժամանակավոր փոփոխական
     private String confirmPassword;
+
+//    @DateTimeFormat(pattern = "yyyy:mm:dd")
+    @CreatedDate
+    private LocalDate createdDate;
 
     @OneToMany
     private List<Item> items;
 
-    @OneToMany(mappedBy = "person")
-    private List<ShopUserRegistration> shopUserRegistrationList;
 
     @OneToMany(mappedBy = "person")
-    private List<Basket> basketList;
+    @ToString.Exclude
+    private List<Cart> cartList;
 
-    @OneToMany(mappedBy = "person")
-    private List<BoughtItem> boughtItemList;
+    @OneToMany(mappedBy = "customer")
+    @ToString.Exclude
+    private List<Order> purchases;
 
-    @Override
-    public String toString() {
-        return "\n Person" + '\n' +
-                "   id : " + id + '\n' +
-                "   first_name : " + first_name + '\n' +
-                "   last_name : " + last_name + '\n' +
-                "   email : " + email + '\n' +
-                "   phone_number : " + phone_number + '\n' +
-                "   gender : " + gender + '\n' +
-                "   country : " + country + '\n' +
-                "   yearOfBirth : " + birthday + '\n' +
-                "   role : " + role + '\n' +
-                "   activationCode : " + activationCode + '\n' +
-                "   active : " + active + '\n' +
-                "   password : " + password + '\n' +
-                "   confirmPassword : " + confirmPassword + '\n';
-    }
+    @OneToMany(mappedBy = "seller")
+    @ToString.Exclude
+    private List<Order> sold;
+
+    @OneToMany(mappedBy = "rater")
+    private List<PersonRating> favoritesUser;
+
+    @OneToMany(mappedBy = "rated")
+    private List<PersonRating> ratings;
+
+//    @Override
+//    public String toString() {
+//        return "\n Person" + '\n' +
+//                "   id : " + id + '\n' +
+//                "   first_name : " + first_name + '\n' +
+//                "   last_name : " + last_name + '\n' +
+//                "   email : " + email + '\n' +
+//                "   phone_number : " + phone_number + '\n' +
+//                "   gender : " + gender + '\n' +
+//                "   country : " + country + '\n' +
+//                "   yearOfBirth : " + birthDate + '\n' +
+//                "   role : " + role + '\n' +
+//                "   activationCode : " + activationCode + '\n' +
+//                "   active : " + active + '\n' +
+//                "   password : " + password + '\n';
+//    }
 }

@@ -1,15 +1,16 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Person;
-import com.example.demo.model.other.Role;
-import com.example.demo.repo.PeopleRepository;
+import com.example.demo.db.model.Person;
+import com.example.demo.db.model.other.Role;
+import com.example.demo.db.repo.PeopleRepository;
 import com.example.demo.security.PersonDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.util.StringUtils;
+
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

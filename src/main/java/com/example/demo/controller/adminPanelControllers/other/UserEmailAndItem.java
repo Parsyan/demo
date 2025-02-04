@@ -1,6 +1,6 @@
 package com.example.demo.controller.adminPanelControllers.other;
 
-import com.example.demo.model.Item;
+import com.example.demo.db.model.Item;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
